@@ -1,0 +1,843 @@
+```html
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ร้านของเรา - หน้าหลัก</title>
+    <!-- นำเข้าฟอนต์ Prompt จาก Google Fonts เพื่อความทันสมัยและอ่านง่าย -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- นำเข้า Font Awesome สำหรับไอคอนตกแต่ง -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* กำหนดตัวแปรโทนสีให้ดูละมุนและแพงขึ้น (Pastel & Premium) */
+        :root {
+            --bg-color: #FDF7F7;      /* สีพื้นหลังสว่าง สะอาดตา ดูแพง */
+            --wine-red: #8B3A46;      /* สีแดงไวน์ละมุน */
+            --nude-red: #CE868E;      /* สีชมพูตุ่นๆ หวานๆ */
+            --cream: #FCE8EA;         /* สีครีมชมพูอ่อน */
+            --text-dark: #5A2A31;     /* ข้อความสีน้ำตาลแดงเข้ม ซอฟต์กว่าสีดำ */
+            --white: #FFFFFF;
+            --shadow-soft: 0 10px 30px rgba(139, 58, 70, 0.08); /* เงาฟุ้งบางๆ */
+            --shadow-hover: 0 15px 35px rgba(139, 58, 70, 0.18);
+            /* เพิ่มสีทอง/โรสโกลด์ ให้ดูแกรม */
+            --gold-gradient: linear-gradient(135deg, #e6b9c0 0%, #ce868e 50%, #8b3a46 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Prompt', sans-serif;
+        }
+
+        /* ------------------
+           ลูกเล่น 1: พื้นหลังขยับได้ 
+        ------------------- */
+        body {
+            background: linear-gradient(-45deg, #FDF7F7, #FCE8EA, #fff0f2, #FDF7F7);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-dark);
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ------------------
+           ลูกเล่น 2: เอฟเฟกต์กระจกฝ้า (Glassmorphism) 
+        ------------------- */
+        .app-container {
+            width: 100%;
+            max-width: 480px;
+            background: rgba(255, 255, 255, 0.4); /* โปร่งใสเบาๆ */
+            backdrop-filter: blur(20px); /* เบลอพื้นหลัง */
+            -webkit-backdrop-filter: blur(20px);
+            min-height: 100vh;
+            padding: 30px 20px;
+            box-shadow: 0 0 40px rgba(139, 58, 70, 0.05);
+            border-left: 1px solid rgba(255,255,255,0.6);
+            border-right: 1px solid rgba(255,255,255,0.6);
+        }
+
+        /* ------------------
+           ลูกเล่น 3: แอนิเมชันเปิดเว็บ (Fade In Up แบบมีจังหวะ) 
+        ------------------- */
+        .app-container > * {
+            animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+        }
+        .app-container > *:nth-child(1) { animation-delay: 0.1s; }
+        .app-container > *:nth-child(2) { animation-delay: 0.2s; }
+        .app-container > *:nth-child(3) { animation-delay: 0.3s; }
+        .app-container > *:nth-child(4) { animation-delay: 0.4s; }
+        .app-container > *:nth-child(5) { animation-delay: 0.5s; }
+        .app-container > *:nth-child(6) { animation-delay: 0.6s; }
+        .app-container > *:nth-child(7) { animation-delay: 0.7s; }
+        .app-container > *:nth-child(8) { animation-delay: 0.8s; }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 1. ประกาศ (Announcement) - ทรงแคปซูลยา ดูน่ารัก (กลับมาใช้แบบลอย) */
+        .announcement {
+            background-color: var(--white);
+            color: var(--wine-red);
+            text-align: center;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(206, 134, 142, 0.2);
+            animation: float 3s ease-in-out infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* 2. ส่วนหัวโปรไฟล์ (Header Section) */
+        .profile-section {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+            align-items: center;
+        }
+
+        /* กรอบโลโก้หมุนได้ */
+        .logo-box {
+            width: 100px;
+            height: 100px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--nude-red);
+            box-shadow: 0 10px 25px rgba(139, 58, 70, 0.15);
+            position: relative;
+            flex-shrink: 0;
+        }
+        
+        .logo-box::before {
+            content: '';
+            position: absolute;
+            top: -4px; left: -4px; right: -4px; bottom: -4px;
+            border-radius: 50%;
+            background: var(--gold-gradient);
+            z-index: -1;
+            animation: spin 6s linear infinite; /* วงแหวนหมุนช้าๆ */
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        .logo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .info-box {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .shop-name {
+            color: var(--wine-red);
+            font-weight: 600;
+            font-size: 1.4rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* กล่องคำโปรยกระจกฝ้า */
+        .shop-desc {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: var(--text-dark);
+            padding: 12px 16px;
+            border-radius: 16px;
+            font-size: 0.85rem;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            position: relative;
+        }
+        
+        .shop-desc::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: -6px;
+            width: 12px;
+            height: 12px;
+            background-color: rgba(255, 255, 255, 0.9);
+            transform: rotate(45deg);
+            border-left: 1px solid rgba(255, 255, 255, 1);
+            border-bottom: 1px solid rgba(255, 255, 255, 1);
+        }
+
+        /* 3. ปุ่มกด (Buttons) */
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .btn-primary {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            background: linear-gradient(135deg, #B5656E, #8B3A46, #B5656E);
+            background-size: 200% auto;
+            color: var(--white);
+            padding: 16px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 10px 25px rgba(139, 58, 70, 0.3);
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            animation: pulseBtnGlow 2s infinite alternate;
+        }
+
+        @keyframes pulseBtnGlow {
+            0% { box-shadow: 0 8px 20px rgba(139, 58, 70, 0.25); }
+            100% { box-shadow: 0 12px 30px rgba(139, 58, 70, 0.6), 0 0 20px rgba(206, 134, 142, 0.5); }
+        }
+
+        /* แสงสะท้อนปุ่มวิ่งวนตลอดเวลา */
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-20deg);
+            animation: continuousShimmer 3s infinite linear;
+        }
+
+        @keyframes continuousShimmer {
+            0% { left: -100%; }
+            20% { left: 200%; }
+            100% { left: 200%; }
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            background-position: right center;
+        }
+
+        .btn-outline {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(5px);
+            color: var(--wine-red);
+            padding: 14px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            border: 2px solid rgba(206, 134, 142, 0.6);
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+            background: var(--white);
+            border-color: var(--wine-red);
+        }
+
+        /* 4. ส่วนไอคอนกลม (Circles Section) */
+        .action-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            padding: 0 5px;
+        }
+
+        .action-label {
+            color: var(--wine-red);
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            position: relative;
+        }
+        
+        .action-label::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 50%;
+            height: 2px;
+            background-color: var(--nude-red);
+            border-radius: 2px;
+        }
+
+        .circles-wrapper {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            padding-bottom: 15px;
+            margin-bottom: 24px;
+            scrollbar-width: none;
+            padding-top: 5px; 
+        }
+
+        .circle-item {
+            min-width: 68px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .circle-icon {
+            width: 68px;
+            height: 68px;
+            background: linear-gradient(135deg, #ffffff, #fdf4f5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--nude-red);
+            font-size: 1.3rem;
+            box-shadow: 0 8px 20px rgba(139, 58, 70, 0.1);
+            border: 1px solid rgba(255, 255, 255, 1);
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            animation: gentleFloat 3s ease-in-out infinite;
+        }
+
+        /* ไล่ระดับเวลาให้ไอคอนลอยสลับกัน (คลื่น) */
+        .circle-item:nth-child(1) .circle-icon { animation-delay: 0s; }
+        .circle-item:nth-child(2) .circle-icon { animation-delay: 0.2s; }
+        .circle-item:nth-child(3) .circle-icon { animation-delay: 0.4s; }
+        .circle-item:nth-child(4) .circle-icon { animation-delay: 0.6s; }
+        .circle-item:nth-child(5) .circle-icon { animation-delay: 0.8s; }
+
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        .circle-item span {
+            color: var(--text-dark);
+            font-size: 0.75rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .circle-item:hover .circle-icon {
+            background-color: var(--wine-red);
+            color: var(--white);
+            transform: scale(1.15) translateY(-5px) !important;
+            border-color: var(--wine-red);
+            box-shadow: 0 15px 25px rgba(139, 58, 70, 0.3);
+            animation: none; /* หยุดลอยเมื่อชี้เมาส์ */
+        }
+
+        .circle-item:hover span {
+            color: var(--wine-red);
+            font-weight: 600;
+        }
+
+        /* 5. คอลัมน์ 2 ฝั่ง (Two Columns) */
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .column-box {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 24px; 
+            aspect-ratio: 1 / 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            text-align: center;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 1);
+        }
+
+        .column-icon-wrapper {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--cream), #fff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            box-shadow: inset 0 2px 5px rgba(255,255,255,0.8), 0 5px 15px rgba(139, 58, 70, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        /* เปลี่ยนไอคอนเป็นสีโรสโกลด์ */
+        .column-box i {
+            font-size: 1.4rem;
+            color: var(--wine-red);
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .column-box:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(139, 58, 70, 0.15);
+            background: rgba(255, 255, 255, 0.9);
+        }
+        
+        .column-box:hover .column-icon-wrapper {
+            background: var(--gold-gradient);
+        }
+        .column-box:hover i {
+            -webkit-text-fill-color: var(--white);
+        }
+
+        /* 6. กล่องเนื้อหาต่างๆ (Content Cards) */
+        .content-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(139, 58, 70, 0.08);
+            border: 1px solid rgba(255, 255, 255, 1);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        
+        .content-card:hover {
+            box-shadow: 0 15px 40px rgba(139, 58, 70, 0.15);
+            transform: translateY(-3px);
+        }
+        
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 5px;
+            background: var(--gold-gradient); /* ขอบบนสีทอง/โรสโกลด์ */
+        }
+        
+        .card-title {
+            color: var(--wine-red);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-title i {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .card-list li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 22px;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+
+        .card-list li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--nude-red);
+            position: absolute;
+            left: 0;
+            font-size: 0.8rem;
+            top: 2px;
+        }
+
+        /* 7. รูป/วิดีโอ (Media Section) */
+        .media-section {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 24px;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--nude-red);
+            font-weight: 500;
+            box-shadow: 0 10px 30px rgba(139, 58, 70, 0.08);
+            border: 1px solid rgba(255, 255, 255, 1);
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            margin-bottom: 20px;
+        }
+
+        .media-section:hover {
+            box-shadow: 0 15px 40px rgba(139, 58, 70, 0.15);
+            transform: scale(1.02);
+        }
+
+        .media-section i {
+            font-size: 4rem;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+            opacity: 0.9;
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            filter: drop-shadow(0 5px 10px rgba(139, 58, 70, 0.2)); /* เงาฟุ้งใต้ไอคอน */
+        }
+
+        .media-section:hover i {
+            transform: scale(1.15);
+        }
+
+        .media-bg-pattern {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(252, 232, 234, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+            z-index: 0;
+        }
+
+        .media-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 20px 40px;
+            border-radius: 24px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 25px rgba(139, 58, 70, 0.1);
+            border: 1px solid rgba(255, 255, 255, 1);
+        }
+
+        /* 8. เอฟเฟกต์อิโมจิ ✨ ระยิบระยับพื้นหลัง */
+        .sparkle-emoji {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0;
+            animation: twinkle var(--duration) ease-in-out infinite alternate;
+            font-size: var(--size);
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.9));
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0; transform: scale(0.5) translateY(0) rotate(0deg); }
+            50% { opacity: var(--max-opacity); transform: scale(1.2) translateY(-15px) rotate(15deg); }
+            100% { opacity: 0; transform: scale(0.8) translateY(-30px) rotate(-10deg); }
+        }
+
+        /* 9. ปุ่มควบคุมเสียง (Music Controller) */
+        .music-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 2px solid var(--nude-red);
+            color: var(--wine-red);
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(139, 58, 70, 0.2);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .music-btn:hover {
+            transform: scale(1.1);
+            background: var(--white);
+            box-shadow: 0 15px 30px rgba(139, 58, 70, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- 1. ประกาศ -->
+        <div class="announcement">
+            🌻มีโปรโมชั่นดีๆสำหรับเดือนนี้น้า✨
+        </div>
+
+        <!-- 2. ส่วนหัวโปรไฟล์ -->
+        <div class="profile-section">
+            <div class="logo-box">
+                <!-- อัปเดตลิงก์โลโก้ใหม่ -->
+                <img src="https://i.postimg.cc/LhKN1Jjj/IMG-7946.png" alt="Nori Design Logo">
+            </div>
+            <div class="info-box">
+                <div class="shop-name">
+                    Nori Design
+                </div>
+                <div class="shop-desc">
+                    ร้านโนริยินดีให้บริการค่า🌻<br>
+                    รับทำป้าย สติกเกอร์ ออกแบบ/ทำเว็บร้านสุดจึ้ง<br>
+                    🌈สามารถสอบถามได้เลยนะคะ💗
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. ปุ่มติดต่อและจุดเช็คคิว -->
+        <div class="btn-container">
+            <a href="https://www.facebook.com/nori.desing?" target="_blank" class="btn-primary">
+                <i class="fab fa-facebook"></i> ทักแชท / สอบถามได้เลยนะคะ
+            </a>
+            <a href="#" class="btn-outline">
+                <i class="fas fa-calendar-check"></i> จุดเช็คคิว / สถานะงาน
+            </a>
+        </div>
+
+        <!-- 4. ส่วนไอคอนกลม -->
+        <div class="action-header">
+            <div class="action-label">บริการของเรา</div>
+        </div>
+        
+        <div class="circles-wrapper">
+            <div class="circle-item">
+                <div class="circle-icon"><i class="fas fa-image"></i></div>
+                <span>งานป้าย</span>
+            </div>
+            <div class="circle-item">
+                <div class="circle-icon"><i class="fas fa-sticky-note"></i></div>
+                <span>สติกเกอร์</span>
+            </div>
+            <div class="circle-item">
+                <div class="circle-icon"><i class="fab fa-line"></i></div>
+                <span>ธีมไลน์</span>
+            </div>
+            <div class="circle-item">
+                <div class="circle-icon"><i class="fas fa-laptop-code"></i></div>
+                <span>ทำเว็บ</span>
+            </div>
+            <div class="circle-item">
+                <div class="circle-icon"><i class="fas fa-users"></i></div>
+                <span>เข้ากลุ่ม</span>
+            </div>
+        </div>
+
+        <!-- 5. คอลัมน์ 1 และ 2 (Drive Links) -->
+        <div class="two-columns">
+            <a href="https://drive.google.com/drive/folders/1ovnS1imBV8jKO-fCHfBhnd3NDw8Yl1lv" target="_blank" class="column-box" style="text-decoration: none;">
+                <div class="column-icon-wrapper">
+                    <i class="fas fa-folder-open"></i>
+                </div>
+                <span>ตัวอย่างงาน</span>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1Lm1uLPvuJm02nWg0hxPjuTGmmGo6jfog" target="_blank" class="column-box" style="text-decoration: none;">
+                <div class="column-icon-wrapper">
+                    <i class="fas fa-hand-pointer"></i>
+                </div>
+                <span>เลือกของทำป้าย<br>/สติกเกอร์</span>
+            </a>
+        </div>
+
+        <!-- 7. รูป/วิดีโอ (Media Section) ย้ายมาตำแหน่งนี้ -->
+        <div class="media-section">
+            <!-- แท็กวิดีโอที่รองรับการเล่นบนหน้าเว็บผ่าน Line/FB โดยไม่เด้งเต็มจอ (playsinline) -->
+            <video autoplay muted loop playsinline webkit-playsinline preload="metadata" style="width: 100%; height: 100%; object-fit: cover; border-radius: 24px;">
+                <!-- เปลี่ยนลิงก์ไฟล์วิดีโอ (.mp4) ของร้านคุณได้ที่บรรทัดด้านล่างนี้ -->
+                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                เบราว์เซอร์ของคุณไม่รองรับการเล่นวิดีโอ
+            </video>
+        </div>
+
+        <!-- 6. ข้อมูลต่างๆ (Cards) -->
+        <div class="content-card">
+            <div class="card-title"><i class="fas fa-money-bill-wave"></i> เรทราคางานที่รับทำ</div>
+            <ul class="card-list">
+                <li>งานป้ายเริ่มต้น 89.-</li>
+                <li>สติกเกอร์แชท/ไอจีเริ่มต้น 59.-</li>
+                <li>สติกเกอร์ไลน์รูปตัวเอง/ลูกอื่นๆ เริ่มต้น 189.-</li>
+                <li>ทำเว็บร้านค้า เริ่มต้น 129.-</li>
+            </ul>
+        </div>
+
+        <div class="content-card">
+            <div class="card-title"><i class="fas fa-users-cog"></i> ขั้นตอนการเข้ากลุ่ม</div>
+            <ul class="card-list">
+                <li>ดูตัวอย่างแล้วแคปรูปกลุ่มที่สนใจ ทักเฟสได้เลย</li>
+                <li>รวมยอด โอนเงิน</li>
+                <li>รอดึงเข้ากลุ่มได้เลย</li>
+            </ul>
+        </div>
+
+        <div class="content-card">
+            <div class="card-title"><i class="fas fa-clipboard-list"></i> เงื่อนไขงานป้าย/สติกเกอร์</div>
+            <ul class="card-list">
+                <li>ตามปกติรองาน 1-2 วัน แล้วแต่คิวของวันนั้นๆ</li>
+                <li>งานเร่ง *2 ของราคา</li>
+                <li>งานเว็บรอประมาณ 4-8ชั่วโมง ของแต่ละคิว</li>
+            </ul>
+        </div>
+
+        <div class="content-card">
+            <div class="card-title"><i class="fas fa-exclamation-circle"></i> กฎของร้าน 📍</div>
+            <ul class="card-list">
+                <li>โอนเงินแล้วไม่รับโอนคืนทุกกรณี</li>
+                <li>โอนผิดโอนเกินทางร้านไม่รับผิดชอบ</li>
+                <li>ถ้าโอนเงินแล้วทางร้านไม่คืนเงินทุกกรณีนะคะ</li>
+                <li>หากยกเลิกงานหลังส่งบรีฟมาแล้ว หากงานเริ่มไปแล้วจะคืนแค่ 50% ค่ะ</li>
+                <li>หากยกเลิกหลังจากเช็คงาน = ไม่คืน และส่งงานให้ตาม</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- ระบบเสียงพื้นหลัง -->
+    <!-- เปลี่ยนลิงก์เพลงตรงนี้ (นำลิงก์ไฟล์ .mp3 มาใส่ใน src) -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <button id="musicToggle" class="music-btn">
+        <i class="fas fa-volume-mute"></i>
+    </button>
+
+    <!-- สคริปต์สำหรับสร้าง ✨ ระยิบระยับในพื้นหลัง -->
+    <script>
+        function createSparkles() {
+            const numSparkles = 25; // จำนวนอิโมจิ ✨
+            const body = document.body;
+            
+            for (let i = 0; i < numSparkles; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.innerHTML = '✨';
+                sparkle.classList.add('sparkle-emoji');
+                
+                // สุ่มตำแหน่งให้อยู่ทั่วหน้าจอ
+                sparkle.style.left = Math.random() * 100 + 'vw';
+                sparkle.style.top = Math.random() * 100 + 'vh';
+                
+                // สุ่มขนาด ความสว่าง และความเร็ว
+                sparkle.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+                sparkle.style.setProperty('--max-opacity', (Math.random() * 0.6 + 0.4));
+                sparkle.style.setProperty('--size', (Math.random() * 15 + 10) + 'px');
+                sparkle.style.animationDelay = (Math.random() * 5) + 's';
+                
+                body.appendChild(sparkle);
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', createSparkles);
+
+        // --- ระบบควบคุมเสียงพื้นหลัง (รองรับทุกแอป/เว็บ) ---
+        const bgMusic = document.getElementById('bgMusic');
+        const musicToggle = document.getElementById('musicToggle');
+        let isMusicPlaying = false;
+
+        // ฟังก์ชันเปิด-ปิดเสียงเมื่อกดปุ่ม
+        musicToggle.addEventListener('click', function(e) {
+            e.stopPropagation(); // ป้องกันไม่ให้ไปกระเทือน Event แตะหน้าจออันล่าง
+            if (isMusicPlaying) {
+                bgMusic.pause();
+                musicToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                isMusicPlaying = false;
+            } else {
+                bgMusic.play();
+                musicToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
+                isMusicPlaying = true;
+            }
+        });
+
+        // ฟังก์ชันเล่นเพลงอัตโนมัติเมื่อผู้ใช้สัมผัสหรือคลิกหน้าจอครั้งแรก (Bypass Autoplay Policy)
+        document.body.addEventListener('click', function playOnFirstInteraction() {
+            if (!isMusicPlaying) {
+                bgMusic.play().then(() => {
+                    isMusicPlaying = true;
+                    musicToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
+                }).catch(err => {
+                    console.log("Autoplay prevented by browser.");
+                });
+            }
+            // ลบคำสั่งนี้ทิ้งเมื่อเล่นเพลงสำเร็จแล้ว จะได้ไม่ทำงานซ้ำ
+            document.body.removeEventListener('click', playOnFirstInteraction);
+        }, { once: true });
+        // รองรับการทัชสกรีนบนมือถือเพิ่มเติม
+        document.body.addEventListener('touchstart', function playOnFirstTouch() {
+            if (!isMusicPlaying) {
+                bgMusic.play().then(() => {
+                    isMusicPlaying = true;
+                    musicToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
+                }).catch(err => {});
+            }
+            document.body.removeEventListener('touchstart', playOnFirstTouch);
+        }, { once: true });
+
+    </script>
+</body>
+</html>
+
+
+
+
+```
